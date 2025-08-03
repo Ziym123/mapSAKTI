@@ -1,0 +1,48 @@
+body {
+  font-family: Optima, Segoe, Segoe UI, Candara, Calibri, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: url("images/nas.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+header {
+  background: #2c0149;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+  position: relative;
+}
+
+.header-img {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 100px;
+  width: auto;
+}
+main {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 2rem auto;
+  background: rgba(0, 0, 0, 0.8); /* Black transparent */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+}
+.info-box {
+  position: absolute;
+  pointer-events: none;
+  background: #22023d;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.15s, font-size 0.25s, padding 0.25s;
+}
