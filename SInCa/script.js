@@ -3,34 +3,104 @@ console.log("Welcome to");
 
 document.addEventListener('DOMContentLoaded', () => {
     const img = document.querySelector('img[usemap="#image-map"]');
-    const areas = document.querySelectorAll('map[name="image-map"] area');
+    // Detect which map is present
+    let mapSelector = '';
+    if (document.querySelector('map[name="image-map"]')) {
+        mapSelector = 'map[name="image-map"] area';
+    } else if (document.querySelector('map[name="sekolah-map"]')) {
+        mapSelector = 'map[name="sekolah-map"] area';
+    } else if (document.querySelector('map[name="asrama-map"]')) {
+        mapSelector = 'map[name="asrama-map"] area';
+    }
+    const areas = document.querySelectorAll(mapSelector);
 
+    // Info for each area (add more as needed)
     const areaInfo = {
-        "Kawasan Perumahan": "Kawasan Perumahan: Residential Area",
-        "Kawasan Memanah": "Kawasan Memanah: Archery Zone",
-        "Gelanggang Bola Jaring": "Gelanggang Bola Jaring: Netball Court",
-        "Gelanggang Bola Keranjang": "Gelanggang Bola Keranjang: Basketball Court",
-        "Padang SAKTI": "Padang SAKTI: Main Field",
-        "Kebun belakang Aspuri": "Kebun belakang Aspuri: Aspuri's Backyard Garden",
-        "Kawasan Asrama SAKTI": "Kawasan Asrama SAKTI: SAKTI Dormitory Area",
+        "Kawasan Perumahan": "Kawasan Perumahan",
+        "Kawasan Memanah": "Kawasan Memanah",
+        "Gelanggang Bola Jaring": "Gelanggang Bola Jaring",
+        "Gelanggang Bola Keranjang": "Gelanggang Bola Keranjang",
+        "Padang SAKTI": "Padang SAKTI",
+        "Kebun belakang Aspuri": "Kebun belakang Aspuri",
+        "Kawasan Asrama SAKTI": "Kawasan Asrama SAKTI",
         "Sekolah": "Sekolah: School Building",
-        "Pagar Utama dan Pondok Pengawal": "Pagar Utama dan Pondok Pengawal: Main Gate & Guardhouse",
-        "Tanki Air": "Tanki Air: Water Tank",
-        "Surau al-Jawaher": "Surau al-Jawaher: Mosque"
+        "Pagar Utama dan Pondok Pengawal": "Pagar Utama dan Pondok Pengawal",
+        "Tanki Air": "Tanki Air",
+        "Surau al-Jawaher": "Surau al-Jawaher",
+        // SEKOLAH MAP
+        "Bengkel RBT": "Bengkel RBT",
+        "Blok C": "Blok C",
+        "Blok B": "Blok B",
+        "Blok A": "Blok A",
+        "Cafeteria SAKTI": "Cafeteria SAKTI",
+        "Dewan Seri Penawar": "Dewan Seri Penawar",
+        "Pondok Bas": "Pondok Bas",
+        "Pagar Utama SAKTI dan Pondok kawalan Keselamatan": "Pagar Utama & Pondok Kawalan",
+        "Taman Sains SAKTI": "Taman Sains SAKTI",
+        "Kawasan Gazebo Dhuha dan Meja Batu": "Gazebo Dhuha & Meja Batu",
+        "Kebun": "Kebun",
+        // ASRAMA MAP
+        "Takraw": "Takraw",
+        "Futsal / Bola Jaring / Bola Baling": "Futsal / Bola Jaring / Bola Baling",
+        "Bola Tampar": "Bola Tampar: Volleyball Court",
+        "Bola Keranjang": "Bola Keranjang",
+        "Asrama Puteri": "Asrama Puteri",
+        "Dewan Seri Balau / Dewan Makan": "Dewan Seri Balau / Dewan Makan",
+        "Asrama Putera": "Asrama Putera",
+        "Dataran Hicom": "Dataran Hicom",
+        "Pondok": "Pondok"
     };
 
     const areaMoreInfo = {
-        "Kawasan Perumahan": "Area ini merupakan kawasan perumahan untuk staf dan guru.",
+        "Kawasan Perumahan": "Kawasan ini merupakan tempat tinggal staf dan guru.",
         "Kawasan Memanah": "Tempat latihan memanah untuk pelajar dan aktiviti kokurikulum.",
-        "Gelanggang Bola Jaring": "Gelanggang untuk bola jaring, digunakan semasa waktu sukan.",
-        "Gelanggang Bola Keranjang": "Gelanggang bola keranjang untuk pelajar dan pertandingan.",
-        "Padang SAKTI": "Padang utama untuk perhimpunan, sukan dan aktiviti luar.",
+        "Gelanggang Bola Jaring": "Digunakan untuk aktiviti bola jaring dan latihan sukan.",
+        "Gelanggang Bola Keranjang": "Tempat pelajar bermain bola keranjang.",
+        "Padang SAKTI": "Padang utama untuk perhimpunan dan acara sukan.",
         "Kebun belakang Aspuri": "Kebun yang diusahakan oleh pelajar asrama puteri.",
         "Kawasan Asrama SAKTI": "Kawasan asrama untuk pelajar lelaki dan perempuan.",
-        "Sekolah": "Bangunan sekolah utama untuk pembelajaran.",
+        "Sekolah": "Bangunan utama untuk pembelajaran.",
         "Pagar Utama dan Pondok Pengawal": "Pintu masuk utama dan pondok pengawal keselamatan.",
         "Tanki Air": "Tanki air utama untuk kegunaan sekolah.",
-        "Surau al-Jawaher": "Surau untuk pelajar dan staf beribadah."
+        "Surau al-Jawaher": "Surau untuk pelajar dan staf beribadah.",
+        "Bengkel RBT": "Bengkel Rekabentuk dan Teknologi untuk kelas praktikal.",
+        "Blok C": `
+        <strong>Tingkat satu:</strong> Bilik Darjah | Makmal Komputer | Tandas
+        <br>
+        <strong>Tingkat dua:</strong> Bilik Darjah | Makmal Sains | Tandas
+        <br>
+        <strong>Tingkat tiga:</strong> Bilik Darjah | Stor | Tandas
+    `,
+        "Blok B": `
+        <strong>Tingkat satu:</strong> Bilik Darjah | Bilik Guru | Tandas
+        <br>
+        <strong>Tingkat dua:</strong> Bilik Darjah | Makmal Sains | Tandas
+        <br>
+        <strong>Tingkat tiga:</strong> Bilik Darjah | Stor | Tandas
+    `,
+        "Blok A": `
+            <strong>Tingkat satu:</strong> Makmal Kimia dua | Makmal Kimia satu | Bilik Seni | Bilik suis | Tandas
+            <br>
+            <strong>Tingkat dua:</strong> Makmal Biologi | Makmal Fizik | Bilik Komputer | Bilik Guru | Tandas
+            <br>
+            <strong>Tingkat tiga:</strong> Bilik Darjah | Bilik Mesyuarat | Stor | Tandas
+        `,
+        "Cafeteria SAKTI": "Kantin sekolah untuk pelajar dan staf.",
+        "Dewan Seri Penawar": "Dewan utama untuk acara rasmi.",
+        "Pondok Bas": "Tempat menunggu bas sekolah.",
+        "Pagar Utama SAKTI dan Pondok kawalan Keselamatan": "Pintu masuk utama sekolah.",
+        "Taman Sains SAKTI": "Taman sains untuk aktiviti STEM.",
+        "Kawasan Gazebo Dhuha dan Meja Batu": "Kawasan rehat dan belajar luar kelas.",
+        "Kebun": "Kebun sekolah untuk projek pertanian.",
+        "Takraw": "Gelanggang sepak takraw.",
+        "Futsal / Bola Jaring / Bola Baling": "Gelanggang pelbagai guna.",
+        "Bola Tampar": "Gelanggang bola tampar.",
+        "Bola Keranjang": "Gelanggang bola keranjang.",
+        "Asrama Puteri": "Asrama untuk pelajar perempuan.",
+        "Dewan Seri Balau / Dewan Makan": "Dewan makan dan dewan serbaguna.",
+        "Asrama Putera": "Asrama untuk pelajar lelaki.",
+        "Dataran Hicom": "Dataran untuk perhimpunan dan aktiviti luar.",
+        "Pondok": "Pondok rehat pelajar."
     };
 
     // Create info box if missing
@@ -106,11 +176,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         area.addEventListener('click', (e) => {
-            // Don't show info box for Sekolah/Asrama click (handled above)
-            if (area.alt === "Sekolah" || area.alt === "Kawasan Asrama SAKTI") return;
             e.preventDefault();
             if (!enlarged) {
-                infoBox.innerHTML = `<strong>${areaInfo[area.alt] || area.title || "Info"}</strong><br><span>${areaMoreInfo[area.alt] || ""}</span>`;
+                infoBox.innerHTML = `
+                    <strong>${areaInfo[area.alt] || area.title || "Info"}</strong>
+                    <br>
+                    <span style="font-size:0.95rem;display:block;margin-top:8px;color:#eee;">
+                        ${areaMoreInfo[area.alt] || ""}
+                    </span>
+                `;
                 infoBox.style.opacity = 1;
                 infoBox.style.fontSize = "1.3rem";
                 infoBox.style.padding = "16px 22px";
@@ -139,4 +213,18 @@ document.addEventListener('DOMContentLoaded', () => {
             enlarged = false;
         }
     });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const menuContainer = document.querySelector('.menu-container');
+    const menuBtn = document.querySelector('.menu-btn');
+    if (menuBtn && menuContainer) {
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menuContainer.classList.toggle('open');
+        });
+        document.addEventListener('click', () => {
+            menuContainer.classList.remove('open');
+        });
+    }
 });

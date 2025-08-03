@@ -7,6 +7,15 @@
 </head>
 <body>
     <header>
+        <div class="menu-container">
+            <button class="menu-btn">&#9776; Menu</button>
+            <div class="menu-dropdown">
+                <a href="intro.html">Intro</a>
+                <a href="index.html">Peta Utama</a>
+                <a href="asrama.html">Asrama</a>
+                <a href="sekolah.html">Sekolah</a>
+            </div>
+        </div>
         <h1>mapSAKTI</h1>
         <img src="images/logo.png" alt="Logo" class="header-img">
     </header>
@@ -28,7 +37,16 @@
                 Klik pada mana-mana kawasan di peta utama untuk melihat maklumat lanjut atau pergi ke halaman khusus. 
                 Gunakan menu dan pautan untuk navigasi yang lebih mudah.
             </p>
-            <a href="index.html" style="display:inline-block;margin-top:2rem;">Mula Teroka Peta &rarr;</a>
+            <button type="button" class="btn" onclick="window.location.href = 'index.html';">
+                <strong>MULAKAN PETA</strong>
+                <div id="container-stars">
+                    <div id="stars"></div>
+                </div>
+                <div id="glow">
+                    <div class="circle"></div>
+                    <div class="circle"></div>
+                </div>
+            </button>
         </section>
     </main>
 </body>
